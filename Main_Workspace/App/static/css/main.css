@@ -1,0 +1,28 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    border: none;
+}
+
+body {
+    min-height: 100vh;
+    background: url('https://singularityhub.com/wp-content/uploads/2019/07/Green-silhouette-forest-abstract-background-environment-shutterstock-692341585-1068x601.jpg') no-repeat fixed;
+    background-size: cover;
+}
+.blur{
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(168, 168, 168, 0.525);
+}
+button{
+    cursor: pointer;
+}

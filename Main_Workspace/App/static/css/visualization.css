@@ -1,0 +1,82 @@
+.inputcontainer{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    padding: 20px;
+}
+.inputcontainer >label{
+    background: linear-gradient(aqua,yellow);
+    font-size: 30px;
+    padding: 50px 60px;
+    margin: 60px;
+    border-radius: 10px;
+}
+
+.inputcontainer input:checked + label{
+    border: 5px solid rgb(0, 153, 255);
+}
+
+.inputcontainer input{
+    display: none;
+}
+.visualization_form{
+    display: flex;
+    flex-direction: column;
+}
+
+.visualization_form button{
+    font-size: 30px;
+    padding: 20px 50px;
+    margin: 30px auto;
+    border-radius: 50px;
+    background: linear-gradient(aqua,aquamarine);
+}
+#optionwindow{
+    display: none;
+    border: 1px solid royalblue;
+    border-radius: 15px;
+}
+.optioncontainer{
+    position: relative;
+    background: aquamarine;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 300px;
+    justify-content:center;
+    align-items: center;
+}
+.hideoption{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: bolder;
+    font-size: 30px;
+    cursor: pointer;
+}
+.submit button{
+    font-size: 20px;
+    padding: 5px 30px;
+    border: 1px solid black;
+}
+.state_options ,.district_options{
+    margin: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.district_options{
+    display: none;
+}
+
+#state_level:checked ~ #optionwindow{
+    display: flex;
+}
+
+#district_level:checked ~ #optionwindow {
+    display: flex;
+}
+#district_level:checked ~ #optionwindow .district_options{
+    display: flex;
+}

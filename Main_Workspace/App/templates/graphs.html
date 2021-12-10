@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphical Visualization</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+
+    <style>
+        h1 ,h2{
+            text-align: center;
+        }
+
+        form {
+            width: 50%;
+            min-height: 200px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        form input {
+            font-size: 20px;
+        }
+        form input[type=submit] {
+            padding: 5px 30px;
+            margin: 10px;
+            background: aquamarine;
+        }
+        .setoftwo{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .graph{
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        Graphical data for {{place}}
+    </h1>
+    <form action="/graphs" method="post">
+        <span>Data is from </span>
+        <input type="date" name="start_date" min="2020-01-30" max="2021-10-31" id="date" value="{{start_date}}">
+        <span>to</span>
+        <input type="date" name="last_date" min="2020-01-30" max="2021-10-31" id="date" value="{{last_date}}">
+        <input type="submit" value="Update">
+    </form>
+    <div class="graphcontainer">
+        <h2>Confirmed Cases data</h2>
+        <div class="setoftwo">
+            <div class="graph">
+                <div id="confirmed_curve_chart" style="min-height: 500px"></div>
+            </div>
+            <div class="graph">
+                <div id="delta_confirmed_curve_chart" style="min-height: 500px"></div>
+            </div>
+        </div>
+        <h2>Recovered Cases data</h2>
+        <div class="setoftwo">
+            <div class="graph">
+                <div id="recovered_curve_chart" style="min-height: 500px"></div>
+            </div>
+            <div class="graph">
+                <div id="delta_recovered_curve_chart" style="min-height: 500px"></div>
+            </div>
+        </div>
+        <h2>Death Cases data</h2>
+        <div class="setoftwo">
+            <div class="graph">
+                <div id="death_curve_chart" style="min-height: 500px"></div>
+            </div>
+            <div class="graph">
+                <div id="delta_death_curve_chart" style="min-height: 500px"></div>
+            </div>
+        </div>
+        <h2>Active Cases data</h2>
+        <div class="setoftwo">
+            <div class="graph">
+                <div id="active_curve_chart" style="min-height: 500px"></div>
+            </div>
+            <div class="graph">
+                <div id="delta_active_curve_chart" style="min-height: 500px"></div>
+            </div>
+        </div>
+        <h1>Historical Data</h1>
+        <div>
+            <div class="graph">
+                <div id="combined_total_curve_chart" style="min-height: 800px"></div>
+            </div>
+        </div>
+        <h2>Daily basis Data</h2>
+        <div>
+            <div class="graph">
+                <div id="combined_delta_curve_chart" style="min-height: 800px"></div>
+            </div>
+        </div>
+        <h2>Weekly basis Data</h2>
+        <div>
+            <div class="graph">
+                <div id="combined_delta7_curve_chart" style="min-height: 800px"></div>
+            </div>
+        </div>
+        <h2>Vaccination Data</h2>
+        <div>
+            <div class="graph">
+                <div id="combined_vaccination_curve_chart" style="min-height: 800px"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</body>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- <script type="text/javascript" src="../static/javascript/final_prediction.js"> -->
+<!-- <script type="text/javascript" src="{{url_for('static',filename='javascript/final_prediction.js')}}">
+    
+</script> -->
+<script>
+    async function get_data(type) {
+        try {
+            response = await fetch(`http://127.0.0.1:5000/get_graph_data/${type}`, {
+                headers: {
+                    "Content-Type": "Application/json"
+                }
+            })
+            //console.log(response)
+            result = await response.json()
+            //console.log(result)
+            //console.log(Object.keys(result))
+            data = [Object.keys(result)]
+            for (let i = 0; i < Object.keys(result['date']).length; i++) {
+                tempdata = []
+                for(j=0;j<Object.keys(result).length;j++){
+                    tempdata.push(result[Object.keys(result)[j]][i])
+                    //tempdata.push(result['delta_confirmed'][i])
+                }
+                //console.log(tempdata)
+                data.push(tempdata)
+            }
+            //console.log(data)
+            return data
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    get_data()
+    
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+    async function drawChart() {
+        data = await get_data('total_confirmed')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Total Confirmed cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('confirmed_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('delta_confirmed')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Confirmed cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('delta_confirmed_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('total_recovered')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Total Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('recovered_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('delta_recovered')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('delta_recovered_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('total_death')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('death_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('delta_death')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('delta_death_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('total_active')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('active_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('delta_active')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('delta_active_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('combined_total')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('combined_total_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('combined_delta')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('combined_delta_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('combined_delta7')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('combined_delta7_curve_chart'));
+        chart.draw(data, options);
+        data = await get_data('combined_vaccination')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Daily Recovered cases',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('combined_vaccination_curve_chart'));
+        chart.draw(data, options);
+    }
+
+</script>
+</html>

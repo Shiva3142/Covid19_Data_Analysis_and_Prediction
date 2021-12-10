@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid-19 Prediction</title>
+    <link rel="stylesheet" href="../static/css/final_prediction.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/final_prediction.css')}}">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>
+                Covid-19 Cases Prediction and Forecasting
+            </h1>
+            <nav>
+                <a style="background:tomato" href="#confirmed">Confirmed Case Prediction</a>
+                <a style="background:green" href="#recovered">Recovered Case Prediction</a>
+                <a style="background:gray" href="#death">Death Case Prediction</a>
+                <a style="background:skyblue" href="#active">Change in Active Case Prediction</a>
+            </nav>
+        </header>
+        <section id="maincard">
+            <h1>Place for Prediction : <span>{{place_name}}</span></h1>
+            <h1>Type of Cases to be Predicted :
+
+                <ul>
+                    <li>Confirmed</li>
+                    <li>Recovered</li>
+                    <li>Death</li>
+                    <li>Change in Active</li>
+                </ul>
+
+
+            </h1>
+            <h1>Output :
+
+                <ul>
+                    <li>Excepted Range of Cases for Perticular Date</li>
+                    <li>Excepted Cases Values</li>
+                </ul>
+
+            </h1>
+            <h1>Data Used For Training : <span> Covid Cases data from 31 january 2020 to 30 October 2021 </span></h1>
+            <h1>Cases of next {{number_of_next_days}} days is Predicted</h1>
+            <h1 style="color: #8a0202;">{{icu_requirement}}</h1>
+        </section>
+    </div>
+
+
+    <div class="container" id="confirmed">
+
+        <section class="predictionContainer">
+            <h1>Confirmed Cases Prediction of {{place_name}} for next {{number_of_next_days}} Days</h1>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>DATE</th>
+                        <th>ARIMA Model Prediction</th>
+                        <th>SARIMA Model Prediction</th>
+                        <th>Final Excepted Range of Prediction</th>
+                        <th>Final Excepted Prediction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for index,row in confirmed_result.iterrows()%}
+                    <!-- {{row}} -->
+                    <tr>
+                        {%for column in confirmed_result.columns%}
+                        <!-- {{row['index']}} -->
+                        <!-- {{i}} -->
+                        <td>{{row[column]}}</td>
+                        {%endfor%}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <div id="confirmed_curve_chart" style="min-width: 1600px; min-height: 500px"></div>
+        </section>
+
+    </div>
+    <div class="container" id="recovered">
+        <section class="predictionContainer">
+            <h1>Recovered Cases Prediction of {{place_name}} for next {{number_of_next_days}} Days</h1>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>DATE</th>
+                        <th>ARIMA Model Prediction</th>
+                        <th>SARIMA Model Prediction</th>
+                        <th>Final Excepted Range of Prediction</th>
+                        <th>Final Excepted Prediction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for index,row in recovered_result.iterrows()%}
+                    <!-- {{row}} -->
+                    <tr>
+                        {%for column in recovered_result.columns%}
+                        <!-- {{row['index']}} -->
+                        <!-- {{i}} -->
+                        <td>{{row[column]}}</td>
+                        {%endfor%}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <div id="recovered_curve_chart" style="min-width: 1600px; min-height: 500px"></div>
+        </section>
+
+
+    </div>
+    <div class="container" id="death">
+        <section class="predictionContainer">
+            <h1>Death Cases Prediction of {{place_name}} for next {{number_of_next_days}} Days</h1>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>DATE</th>
+                        <th>ARIMA Model Prediction</th>
+                        <th>SARIMA Model Prediction</th>
+                        <th>Final Excepted Range of Prediction</th>
+                        <th>Final Excepted Prediction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for index,row in deaths_result.iterrows()%}
+                    <!-- {{row}} -->
+                    <tr>
+                        {%for column in deaths_result.columns%}
+                        <!-- {{row['index']}} -->
+                        <!-- {{i}} -->
+                        <td>{{row[column]}}</td>
+                        {%endfor%}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <div id="death_curve_chart" style="min-width: 1600px; min-height: 500px"></div>
+        </section>
+
+    </div>
+    <div class="container" id="active">
+        <section class="predictionContainer">
+            <h1>Change in Active Cases Prediction of {{place_name}} for next {{number_of_next_days}} Days</h1>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>DATE</th>
+                        <th>ARIMA Model Prediction</th>
+                        <th>SARIMA Model Prediction</th>
+                        <th>Final Excepted Range of Prediction</th>
+                        <th>Final Excepted Prediction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for index,row in active_result.iterrows()%}
+                    <!-- {{row}} -->
+                    <tr>
+                        {%for column in active_result.columns%}
+                        <!-- {{row['index']}} -->
+                        <!-- {{i}} -->
+                        <td>{{row[column]}}</td>
+                        {%endfor%}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <div id="active_curve_chart" style="min-width: 1600px; min-height: 500px"></div>
+        </section>
+    </div>
+
+</body>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- <script type="text/javascript" src="../static/javascript/final_prediction.js"> -->
+<!-- <script type="text/javascript" src="{{url_for('static',filename='javascript/final_prediction.js')}}">
+    
+</script> -->
+<script>
+    async function get_data(type) {
+        try {
+            response = await fetch(`http://127.0.0.1:5000/get_target_data/${type}`, {
+                headers: {
+                    "Content-Type": "Application/json"
+                }
+            })
+            console.log(response)
+            result = await response.json()
+            console.log(result)
+            data = [
+                ['Date', 'ARIMA Prediction', 'SARIMA Prediction', 'Final Excepted Prediction']
+            ]
+            for (let i = 0; i < 15; i++) {
+                tempdata = []
+                tempdata.push(result['Future Dates'][i])
+                tempdata.push(result['ARIMA Prediction'][i])
+                tempdata.push(result['SARIMA Prediction'][i])
+                tempdata.push(result['Final Excepted Prediction'][i])
+                console.log(tempdata)
+                data.push(tempdata)
+            }
+            console.log(data)
+            return data
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    get_data()
+    
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+    async function drawChart() {
+        data = await get_data('confirmed')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Confirmed cases prediction',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('confirmed_curve_chart'));
+        chart.draw(data, options);
+
+        data = await get_data('recovered')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Recovered cases prediction',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('recovered_curve_chart'));
+        chart.draw(data, options);
+
+        data = await get_data('death')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Death cases prediction',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('death_curve_chart'));
+        chart.draw(data, options);
+
+        data = await get_data('active')
+        console.log(data);
+        var data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Covid-19 Change in Active cases prediction',
+            curveType: 'function',
+            legend: {
+                position: 'bottom'
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('active_curve_chart'));
+        chart.draw(data, options);
+    }
+</script>
+
+</html>

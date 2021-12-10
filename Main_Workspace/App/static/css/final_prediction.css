@@ -1,0 +1,164 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* list-style: none; */
+    text-decoration: none;
+    /* transition: all 1s; */
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: url('https://singularityhub.com/wp-content/uploads/2019/07/Green-silhouette-forest-abstract-background-environment-shutterstock-692341585-1068x601.jpg') no-repeat fixed;
+    background-size: cover;
+}
+
+
+.container{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    scroll-behavior: smooth;
+}
+.predictionContainer{
+    min-height: 95vh;
+    width: 95%;
+    border: 1px solid gray;
+    margin: 20px;
+    background:linear-gradient(#2e86de75,#0c246186);
+    display: flex;
+    padding: 10px;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+}
+.predictionContainer h1{
+    font-size: 30px;
+}
+
+
+
+nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background: aqua;
+    width: 20px;
+    /* height: 600px; */
+    top: 50%;
+    left: 0;
+    border: 1px solid #00000041;
+    border-radius: 0px 10px 10px 0;
+    transform: translate(0,-50%);
+    /* padding: 10px; */
+    overflow: hidden;
+    transition: all 1s;
+    box-shadow: 10px 10px 10px gray;
+}
+nav a{
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 40px 20px;
+    color: black;
+}
+nav a:hover{
+    background: #02adab;
+}
+h1{
+    text-align: center;
+    margin: 10px;
+}
+
+nav:hover{
+    width: 150px;
+}
+
+
+
+table {
+    /* border-collapse: collapse; */
+    width: 96%;
+    margin: 20px auto;
+    text-align: center;
+    /* background-color: #ecf0f1; */
+    font-size: 25px;
+    border: 1px solid rgb(0, 0, 0);
+}
+thead th {
+    background-color: #87ffff;
+
+}
+
+th {
+    border: 1px solid rgb(0, 0, 0);
+    /* border: none; */
+    /* margin: 100px; */
+    padding: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+tr:nth-child(even) {
+    background-color: #dfe6e9;
+}
+
+tr:nth-child(odd) {
+    background-color: #ccd0d4;
+}
+
+td{
+    padding: 3px;
+}
+#maincard{
+    height: 75vh;
+    width: 80%;
+    background: linear-gradient(rgba(0, 255, 255, 0.605),rgba(127, 255, 212, 0.64)), url('https://www.paho.org/sites/default/files/styles/flexslider_full/public/2020-03/blue-covid-banner.jpg?h=96546727&itok=xDLAoRJF') no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#maincard h1{
+    width: 70%;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+}
+
+#maincard h1:not(:last-child){
+    border-bottom: 1px solid black;
+
+}
+
+header h1{
+    font-size: 50px;
+    color: black;
+}
+/* 
+
+
+.graphcontainer{
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.graphbtn{
+    width: 280px;
+    background:darkcyan;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+ */
+

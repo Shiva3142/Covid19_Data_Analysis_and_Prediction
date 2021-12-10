@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistical Visualization</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 50%;
+            min-height: 200px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        form input {
+            font-size: 20px;
+        }
+        form input[type=submit] {
+            padding: 5px 30px;
+            margin: 10px;
+            background: aquamarine;
+        }
+
+        table {
+            /* border-collapse: collapse; */
+            width: 96%;
+            margin: 20px auto;
+            text-align: center;
+            /* background-color: #ecf0f1; */
+            border: 1px solid rgb(0, 0, 0);
+        }
+
+        th {
+            background-color: #87ffff;
+            border: 1px solid rgb(0, 0, 0);
+
+        }
+
+        th {
+            border: 1px solid rgb(0, 0, 0);
+            /* border: none; */
+            /* margin: 100px; */
+            padding: 10px;
+            font-weight: bolder;
+            cursor: pointer;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dfe6e9;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ccd0d4;
+        }
+
+        td {
+            padding: 3px;
+            border: 1px solid rgb(0, 0, 0);
+
+        }
+
+        table {
+            border: 1px solid royalblue;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <h1>
+        Statistical data for {{place}}
+    </h1>
+    <form action="/statistics" method="post">
+        <span>Data is from </span>
+        <input type="date" name="start_date" min="2020-01-30" max="2021-10-31" id="date" value="{{start_date}}">
+        <span>to</span>
+        <input type="date" name="last_date" min="2020-01-30" max="2021-10-31" id="date" value="{{last_date}}">
+        <input type="submit" value="Update">
+    </form>
+    <h1>Description of Data</h1>
+    <table border="1">
+        <tr>
+            <th>columns</th>
+            {% for i in description.columns%}
+            <th>{{i}}</th>
+            {%endfor%}
+        </tr>
+        {%for index,row in description.iterrows()%}
+        <tr>
+            <td>{{row['columns']}}</td>
+            {%for column in description.columns%}
+            <td>{{row[column]}}</td>
+            {%endfor%}
+        </tr>
+        {%endfor%}
+    </table><br><br><br>
+    <h1>Correlation of Data</h1>
+    <table border="1">
+        <tr>
+            <th>columns</th>
+            {% for column in correlation.columns%}
+            <th>{{column}}</th>
+            {%endfor%}
+        </tr>
+        {%for index,row in correlation.iterrows()%}
+        <tr>
+            <td>{{row['columns']}}</td>
+            {%for column in correlation.columns%}
+            <td>{{row[column]}}</td>
+            {%endfor%}
+        </tr>
+        {%endfor%}
+    </table>
+    <br><br><br>
+    <h1>Actual Data</h1>
+    <table border="1">
+        <tr>
+            {% for i in data.columns%}
+            <th>{{i}}</th>
+            {%endfor%}
+        </tr>
+        {%for index,row in data.iterrows()%}
+        <tr>
+            {%for column in data.columns%}
+            <td>{{row[column]}}</td>
+            {%endfor%}
+        </tr>
+        {%endfor%}
+    </table>
+
+
+
+    <br>
+    <br>
+    <!-- {{data}} -->
+    <br>
+    <br>
+    <!-- {{correlation}} -->
+    <br>
+    <br>
+    {{info}}
+    <br>
+    <br>
+    <!-- {{description}} -->
+</body>
+
+</html>

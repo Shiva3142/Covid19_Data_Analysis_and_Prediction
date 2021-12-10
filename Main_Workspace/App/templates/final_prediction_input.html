@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Prediction Input</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/visualization.css')}}">
+    <script src="{{url_for('static',filename='javascript/visualization.js')}}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        #optionwindow{
+            margin: auto;
+        }
+
+        #state_level:checked~#optionwindow {
+            display: flex;
+        }
+
+        #district_level:checked~#optionwindow {
+            display: flex;
+        }
+
+    </style>
+    <script>
+        
+
+    </script>
+</head>
+
+<body>
+    <form action="/covidprediction" method="post" class="visualization_form">
+        <h2 style="text-align: center;">Please choose Data Level type</h2>
+        <div class="inputcontainer">
+            <input type="radio" name="cases_level" id="india_level" value="india_level" required
+                onclick="hide_options_of_visualization()">
+            <label for="india_level">India Level</label>
+            <input type="radio" name="cases_level" id="state_level" onclick="state_lavel_option()"
+                value="state_level" required>
+            <label for="state_level">State Level</label>
+            <input type="radio" name="cases_level" id="district_level" onclick="show_district_option()"
+                value="district_level" required>
+            <label for="district_level">District Level</label>
+        </div>
+        <div class="optioncontainer" id="optionwindow">
+            <div class="state_options">
+                <label for="state_name">Please choose State</label>
+                <select name="state" id="state_name" onchange="get_district_list(event.target.value)">
+                    <option value="MH">Maharashtra</option>
+                    <option value="AN">Andaman and Nicobar Islands</option>
+                    <option value="AP">Andhra Pradesh</option>
+                    <option value="AR">Arunachal Pradesh</option>
+                    <option value="AS">Assam</option>
+                    <option value="BR">Bihar</option>
+                    <option value="CH">Chandigarh</option>
+                    <option value="CT">Chhattisgarh</option>
+                    <option value="DN">Dadra and Nagar Haveli</option>
+                    <option value="DL">Delhi</option>
+                    <option value="GA">Goa</option>
+                    <option value="GJ">Gujarat</option>
+                    <option value="HR">Haryana</option>
+                    <option value="HP">Himachal Pradesh</option>
+                    <option value="JK">Jammu and Kashmir</option>
+                    <option value="JH">Jharkhand</option>
+                    <option value="KA">Karnataka</option>
+                    <option value="KL">Kerala</option>
+                    <option value="LA">Ladakh</option>
+                    <option value="LD">Lakshadweep</option>
+                    <option value="MP">Madhya Pradesh</option>
+                    <option value="MN">Manipur</option>
+                    <option value="ML">Meghalaya</option>
+                    <option value="MZ">Mizoram</option>
+                    <option value="NL">Nagaland</option>
+                    <option value="OR">Odisha</option>
+                    <option value="PY">Puducherry</option>
+                    <option value="PB">Punjab</option>
+                    <option value="RJ">Rajasthan</option>
+                    <option value="SK">Sikkim</option>
+                    <option value="TN">Tamil Nadu</option>
+                    <option value="TG">Telangana</option>
+                    <option value="TR">Tripura</option>
+                    <option value="UP">Uttar Pradesh</option>
+                    <option value="UT">Uttarakhand</option>
+                    <option value="WB">West Bengal</option>
+                </select>
+            </div>
+            <div class="district_options" id="district_options">
+                <!-- <label for="diatrict_name">Please choose State</label>
+                <select name="district" id="diatrict_name">
+                    <option value="Raigad">Raigad</option>
+                </select> -->
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
