@@ -1,4 +1,4 @@
-CREATE TABLE `covid-19_data`.`total_india_cases` (
+CREATE TABLE `covid_19_data`.`total_india_cases` (
 `index_no` INT NOT NULL AUTO_INCREMENT,
 `date` DATE NOT NULL,
 `ordinal_date` INT NOT NULL,
@@ -30,7 +30,7 @@ PRIMARY KEY (`index_no`));
 
 
 
-CREATE TABLE `covid-19_data`.`total_state_cases` (
+CREATE TABLE `covid_19_data`.`total_state_cases` (
 `index_no` INT NOT NULL AUTO_INCREMENT,
 `date` DATE NOT NULL,
 `ordinal_date` INT NOT NULL,
@@ -63,7 +63,7 @@ PRIMARY KEY (`index_no`));
 
 
 
-CREATE TABLE `covid-19_data`.`total_district_cases` (
+CREATE TABLE `covid_19_data`.`total_district_cases` (
 `index_no` INT NOT NULL AUTO_INCREMENT,
 `date` DATE NOT NULL,
 `ordinal_date` INT NOT NULL,

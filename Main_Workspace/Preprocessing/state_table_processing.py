@@ -16,8 +16,8 @@ connect_to_database()
 if con:
     print(con)
 
-    
-exit()
+
+# exit()
 def processing_for_state_table(key,value):
     year=key[0:4]
     month=key[5:7]
@@ -229,6 +229,9 @@ for i in data:
     for key,value in i.items():
         processing_for_state_table(key,value)
 
-con.commit()
+con.rollback()
+
+
+# con.commit()
 con.close()
 

@@ -1,11 +1,9 @@
-from logging import log
 from flask import Flask,render_template,redirect,request,send_from_directory,jsonify
 import mysql.connector
-from numpy.lib.function_base import place
 import pandas
 from Main import Forecasting_of_covid_cases_for_district,Forecasting_of_covid_cases_for_india, Forecasting_of_covid_cases_for_state
 import matplotlib.pyplot as pyplot
-
+import sklearn
 
 with open('./Main_Workspace/config.env') as f:
     credentials=f.read()

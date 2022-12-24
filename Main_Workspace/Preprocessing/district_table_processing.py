@@ -17,7 +17,7 @@ connect_to_database()
 if con:
     print(con)
 
-exit()
+# exit()
 
 
 def processing_for_district_table(key,value):

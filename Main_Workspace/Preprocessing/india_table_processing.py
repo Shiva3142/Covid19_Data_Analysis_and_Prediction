@@ -19,7 +19,7 @@ connect_to_database()
 if con:
     print(con)
 
-exit()
+# exit()
 
 
 def processing_for_india_table(key,value):
@@ -233,6 +233,7 @@ for i in data:
         processing_for_india_table(key,value)
 
 con.commit()
+# con.rollback()
 con.close()
 
 
